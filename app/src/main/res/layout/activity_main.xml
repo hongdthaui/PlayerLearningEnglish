@@ -148,9 +148,21 @@
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/bt_oval_click"
                 app:layout_constraintBottom_toBottomOf="@+id/main_bottom_civ_song_icon"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/main_bottom_ib_setting"
                 app:layout_constraintTop_toTopOf="@id/main_bottom_civ_song_icon"
                 app:srcCompat="@drawable/ic_queue_music_24dp" />
+
+            <ImageButton
+                android:id="@+id/main_bottom_ib_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bt_oval_click"
+                android:onClick="@{()->viewModel.onClickBottomControl()}"
+                app:layout_constraintBottom_toBottomOf="@+id/main_bottom_civ_song_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/main_bottom_civ_song_icon"
+                app:srcCompat="@drawable/ic_settings_24dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

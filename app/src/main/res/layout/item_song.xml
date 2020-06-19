@@ -72,6 +72,17 @@
             app:layout_constraintLeft_toRightOf="@id/item_song_iv_icon"
             app:layout_constraintTop_toBottomOf="@+id/item_song_iv_icon" />
 
+        <ImageButton
+            android:id="@+id/item_song_ib_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bt_oval_click"
+            app:layout_constraintBottom_toBottomOf="@+id/item_song_iv_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/item_song_iv_icon"
+            app:srcCompat="@drawable/ic_more_24dp" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
