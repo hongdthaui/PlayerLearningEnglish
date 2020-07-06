@@ -27,13 +27,13 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new SongFragment();
+                fragment = new PlaylistFragment();
                 break;
             case 1:
-                fragment = new AlbumFragment();
+                fragment = new SongFragment();
                 break;
             case 2:
-                fragment = new PlaylistFragment();
+                fragment = new AlbumFragment();
                 break;
             case 3:
                 fragment = new FolderFragment();
@@ -52,13 +52,13 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         String title = "";
         switch (position){
             case 0:
-                title = context.getString(R.string.tab_1);
+                title = context.getString(R.string.tab_3);
                 break;
             case 1:
-                title = context.getString(R.string.tab_2);
+                title = context.getString(R.string.tab_1);
                 break;
             case 2:
-                title = context.getString(R.string.tab_3);
+                title = context.getString(R.string.tab_2);
                 break;
             case 3:
                 title = context.getString(R.string.tab_4);
