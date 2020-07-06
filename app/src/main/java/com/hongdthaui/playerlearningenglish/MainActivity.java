@@ -3,14 +3,17 @@ package com.hongdthaui.playerlearningenglish;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -39,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private int countBackPressed = 0;
     private BottomSheetBehavior sheetBehavior;
     private ConstraintLayout clBottomSheet;
-
+    private final int REQUEST_ID_READ_EXTERNAL_STORAGE = 100;
+    public static boolean READ_EXTERNAL_OK = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_ID_READ_EXTERNAL_STORAGE);
+        } else {
+            READ_EXTERNAL_OK = true;
+            viewModel.fetchData();
+        }
 
     }
 
@@ -106,6 +118,23 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length > 0) {
+            switch (requestCode) {
+                case REQUEST_ID_READ_EXTERNAL_STORAGE: {
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        READ_EXTERNAL_OK = true;
+                        viewModel.fetchData();
+                    }
+                }
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "Permission Cancelled!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private ArrayList<HashMap<String, String>> getPlayList(String rootPath) {

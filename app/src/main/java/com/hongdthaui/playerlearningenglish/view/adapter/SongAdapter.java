@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hongdthaui.playerlearningenglish.R;
 import com.hongdthaui.playerlearningenglish.databinding.ItemSongBinding;
 import com.hongdthaui.playerlearningenglish.model.Song;
+import com.hongdthaui.playerlearningenglish.viewmodel.SongItemViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongHolder> {
-    private List<Song> songList = new ArrayList<>();
+    private List<Song> songList;
     private ViewGroup viewGroup;
-    public SongAdapter(){}
     public SongAdapter(List<Song> songs){
         this.songList = songs;
     }
@@ -31,9 +31,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull SongHolder holder, int position) {
-        holder.itemSongBinding.setSong(songList.get(position));
-        //Log.e("MUSIC",""+songList.get(position).iconUrl);
-        //Glide.with(viewGroup).load(songList.get(position).iconUrl).into(holder.itemSongBinding.itemSongIvIcon);
+        holder.itemSongBinding.setViewModel(new SongItemViewModel(songList.get(position)));
     }
 
     @Override

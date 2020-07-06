@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.hongdthaui.playerlearningenglish.viewmodel.PlaylistItemViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_rectangle">
+
+        <TextView
+            android:id="@+id/item_folder_tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{viewModel.name}"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/text_size_main"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/item_folder_iv_icon"
+            app:layout_constraintStart_toEndOf="@id/item_folder_iv_icon"
+            app:layout_constraintTop_toTopOf="@id/item_folder_iv_icon" />
+
+        <TextView
+            android:id="@+id/item_folder_tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@{@plurals/num_song(viewModel.num,viewModel.num)}"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/text_size_sub"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/item_folder_ib_more"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/item_folder_iv_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_play_circle_24dp" />
+
+        <ImageButton
+            android:id="@+id/item_folder_ib_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_more_24dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

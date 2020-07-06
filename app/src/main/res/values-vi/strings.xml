@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PlayerLearningEnglish</string>
+    <string name="tab_1">Bài hát</string>
+    <string name="tab_2">Album</string>
+    <string name="tab_3">Danh sách phát</string>
+    <string name="tab_4">Thư mục</string>
+    <plurals name="num_song">
+        <item quantity="other">%d bài</item>
+    </plurals>
+</resources>

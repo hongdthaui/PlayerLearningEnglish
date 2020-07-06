@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.hongdthaui.playerlearningenglish.viewmodel.AlbumItemViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_rectangle">
+
+        <ImageView
+            android:id="@+id/item_album_icon"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:background="@drawable/bg_rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_album_36dp" />
+
+        <TextView
+            android:id="@+id/item_album_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text='@{viewModel.name, default = "Mưa sa"}'
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/text_size_main"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/item_album_icon"
+            app:layout_constraintTop_toBottomOf="@+id/item_album_icon" />
+
+        <TextView
+            android:id="@+id/item_album_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{viewModel.num}'
+            android:textColor="@color/colorTextSub"
+            android:textSize="@dimen/text_size_sub"
+            app:layout_constraintEnd_toStartOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/item_album_name" />
+
+        <TextView
+            android:id="@+id/item_album_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text='@{viewModel.artist}'
+            android:textColor="@color/colorTextSub"
+            android:textSize="@dimen/text_size_sub"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_album_name" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="bài"
+            android:textColor="@color/colorTextSub"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/item_album_num" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
