@@ -4,6 +4,10 @@
     <string name="tab_2">Album</string>
     <string name="tab_3">Danh sách phát</string>
     <string name="tab_4">Thư mục</string>
+    <string name="most_played">Nghe nhiều</string>
+    <string name="histoty">Lịch sử</string>
+    <string name="last_added">Thêm lần cuối</string>
+    <string name="favorites">Yêu thích</string>
     <plurals name="num_song">
         <item quantity="other">%d bài</item>
     </plurals>

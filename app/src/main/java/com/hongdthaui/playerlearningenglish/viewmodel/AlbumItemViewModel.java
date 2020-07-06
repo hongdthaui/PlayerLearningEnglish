@@ -11,10 +11,10 @@ import com.hongdthaui.playerlearningenglish.model.Album;
 public class AlbumItemViewModel {
     public ObservableField<String> name;
     public ObservableField<String> artist;
-    public ObservableField<String> num;
+    public ObservableInt num;
     public AlbumItemViewModel(Album album){
         name = new ObservableField<>(album.getName());
         artist = new ObservableField<>(album.getArtist());
-        num = new ObservableField<>(String.valueOf(album.getNum()));
+        num = new ObservableInt(album.getNum());
     }
 }

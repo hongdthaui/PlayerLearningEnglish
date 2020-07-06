@@ -4,6 +4,10 @@
     <string name="tab_2">Album</string>
     <string name="tab_3">Playlist</string>
     <string name="tab_4">Folder</string>
+    <string name="most_played">Most played</string>
+    <string name="histoty">Histoty</string>
+    <string name="last_added">Last added</string>
+    <string name="favorites">Favorites</string>
     <plurals name="num_song">
         <item quantity="one">%d song</item>
         <item quantity="other">%d songs</item>
