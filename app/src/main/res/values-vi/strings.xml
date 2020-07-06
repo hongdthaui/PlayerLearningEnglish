@@ -8,6 +8,7 @@
     <string name="histoty">Lịch sử</string>
     <string name="last_added">Thêm lần cuối</string>
     <string name="favorites">Yêu thích</string>
+    <string name="my_playlist">Danh sách tạo</string>
     <plurals name="num_song">
         <item quantity="other">%d bài</item>
     </plurals>

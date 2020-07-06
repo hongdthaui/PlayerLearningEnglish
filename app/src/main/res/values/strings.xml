@@ -8,6 +8,7 @@
     <string name="histoty">Histoty</string>
     <string name="last_added">Last added</string>
     <string name="favorites">Favorites</string>
+    <string name="my_playlist">My Playlist</string>
     <plurals name="num_song">
         <item quantity="one">%d song</item>
         <item quantity="other">%d songs</item>
