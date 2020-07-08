@@ -9,13 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongdthaui.playerlearningenglish.R;
 import com.hongdthaui.playerlearningenglish.databinding.ItemFolderBinding;
-import com.hongdthaui.playerlearningenglish.databinding.ItemPlaylistBinding;
 import com.hongdthaui.playerlearningenglish.model.Folder;
-import com.hongdthaui.playerlearningenglish.model.Playlist;
 import com.hongdthaui.playerlearningenglish.viewmodel.FolderItemViewModel;
-import com.hongdthaui.playerlearningenglish.viewmodel.PlaylistItemViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,7 +1,6 @@
 package com.hongdthaui.playerlearningenglish.view.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -43,6 +42,10 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Playli
     @Override
     public int getItemCount() {
         return playlists.size();
+    }
+
+    public void setPlaylists(List<Playlist> playlists) {
+        this.playlists = playlists;
     }
 
     public class PlaylistHolder extends RecyclerView.ViewHolder{

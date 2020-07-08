@@ -1,7 +1,6 @@
 package com.hongdthaui.playerlearningenglish.view.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.hongdthaui.playerlearningenglish.MainActivity;
 import com.hongdthaui.playerlearningenglish.R;
 import com.hongdthaui.playerlearningenglish.model.Song;
-import com.hongdthaui.playerlearningenglish.model.SongManager;
 import com.hongdthaui.playerlearningenglish.utils.ItemClickSupport;
 import com.hongdthaui.playerlearningenglish.view.adapter.SongAdapter;
 import com.hongdthaui.playerlearningenglish.viewmodel.MainViewModel;
@@ -25,11 +23,6 @@ import com.hongdthaui.playerlearningenglish.viewmodel.MainViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Observable;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by hongdthaui on 6/18/2020.

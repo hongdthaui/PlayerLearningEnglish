@@ -2,7 +2,6 @@ package com.hongdthaui.playerlearningenglish.model;
 
 
 public class Song {
-    private String id;
     private String name;
     private String title;
     private String album;
@@ -12,8 +11,8 @@ public class Song {
 
     public Song() {
     }
-    public Song(String id, String name, String title, String album, String artist, String path, int duration){
-        this.id= id;
+    public Song( String name, String title, String album, String artist, String path, int duration){
+
         this.name = name;
         this.title = title;
         this.album = album;
@@ -21,11 +20,12 @@ public class Song {
         this.path = path;
         this.duration = duration;
     }
-
-    public String getId() {
-        return id;
+    public Song(String title, String artist, String path, int duration){
+        this.title = title;
+        this.artist = artist;
+        this.path = path;
+        this.duration = duration;
     }
-
     public String getName() {
         return name;
     }

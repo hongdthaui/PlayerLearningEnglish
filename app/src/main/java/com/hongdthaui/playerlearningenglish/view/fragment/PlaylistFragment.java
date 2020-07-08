@@ -8,20 +8,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongdthaui.playerlearningenglish.MainActivity;
 import com.hongdthaui.playerlearningenglish.R;
-import com.hongdthaui.playerlearningenglish.model.Album;
 import com.hongdthaui.playerlearningenglish.model.Playlist;
 import com.hongdthaui.playerlearningenglish.model.Song;
-import com.hongdthaui.playerlearningenglish.model.SongManager;
 import com.hongdthaui.playerlearningenglish.utils.ItemClickSupport;
 import com.hongdthaui.playerlearningenglish.view.adapter.Playlist2Adapter;
 import com.hongdthaui.playerlearningenglish.view.adapter.PlaylistAdapter;
-import com.hongdthaui.playerlearningenglish.view.adapter.SongAdapter;
+import com.hongdthaui.playerlearningenglish.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,44 +32,24 @@ import java.util.List;
 public class PlaylistFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView recyclerView2;
+    MainViewModel viewModel;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        viewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
         return inflater.inflate(R.layout.fragment_playlist,container,false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        List<Playlist> playlists = new ArrayList<>();
-        List<Playlist> playlists2 = new ArrayList<>();
-        if (MainActivity.READ_EXTERNAL_OK){
-           // songOnlines = SongManager.getListSongs(getActivity().getApplicationContext());
-        }
-        List<Song> songOnlines = new ArrayList<>();
-        if (MainActivity.READ_EXTERNAL_OK){
-           // SongManager songManager = new SongManager(getActivity().getApplicationContext());
-           // songOnlines = songManager.getmListSongs();
-        }
 
-        playlists.add(new Playlist("Nghe nhiều nhất",new Song("abc","abc","abc","abc","abc","abc",1000),R.drawable.ic_stars_24dp));
-        playlists.add(new Playlist("Nghe lần cuối",new Song("abc","abc","abc","abc","abc","abc",1000),R.drawable.ic_last_listener_24dp));
-        playlists.add(new Playlist("Yêu thích",new Song("abc","abc","abc","abc","abc","abc",1000),R.drawable.ic_favorite_enable_24dp));
-        playlists.add(new Playlist("Lịch sử",new Song("abc","abc","abc","abc","abc","abc",1000),R.drawable.ic_history_24dp));
+
         //playlists.add(new Playlist("Tuyển chọn nhạc dance",new Song("abc","abc","abc","abc","abc","abc",1000),R.drawable.ic_music_note_240dp));
-        //playlists.add(new Playlist("Nhạc vàng",new Song("abc","abc","abc","abc","abc","abc",1000),R.drawable.ic_music_note_240dp));
-        playlists2.add(new Playlist("Tuyển chọn nhạc dance",new Song("abc","abc","abc","abc","abc","abc",1000),R.drawable.ic_stars_24dp));
-        playlists2.add(new Playlist("Nhạc vàng",new Song("abc","abc","abc","abc","abc","abc",1000),R.drawable.ic_last_listener_24dp));
-        playlists2.add(new Playlist("Thiền tĩnh tâm",new Song("abc","abc","abc","abc","abc","abc",1000),R.drawable.ic_favorite_enable_24dp));
-        playlists2.add(new Playlist("Nhạc trẻ chọn lọc",new Song("abc","abc","abc","abc","abc","abc",1000),R.drawable.ic_history_24dp));
-        playlists2.add(new Playlist("Tuyển chọn nhạc dance",new Song("abc","abc","abc","abc","abc","abc",1000),R.drawable.ic_stars_24dp));
-        playlists2.add(new Playlist("Nhạc vàng",new Song("abc","abc","abc","abc","abc","abc",1000),R.drawable.ic_last_listener_24dp));
-        playlists2.add(new Playlist("Thiền tĩnh tâm",new Song("abc","abc","abc","abc","abc","abc",1000),R.drawable.ic_favorite_enable_24dp));
-        playlists2.add(new Playlist("Nhạc trẻ chọn lọc",new Song("abc","abc","abc","abc","abc","abc",1000),R.drawable.ic_history_24dp));
 
-        PlaylistAdapter playlistAdapter = new PlaylistAdapter(playlists);
-        Playlist2Adapter songAdapter = new Playlist2Adapter(playlists2);
+
+        PlaylistAdapter playlistAdapter = new PlaylistAdapter(new ArrayList<>());
+        Playlist2Adapter playlist2Adapter = new Playlist2Adapter(new ArrayList<>());
 
         recyclerView = view.findViewById(R.id.fargment_playlist_rv1);
         recyclerView2 = view.findViewById(R.id.fargment_playlist_rv2);
@@ -79,9 +59,26 @@ public class PlaylistFragment extends Fragment {
         recyclerView.setAdapter(playlistAdapter);
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerView2.setAdapter(songAdapter);
+        recyclerView2.setAdapter(playlist2Adapter);
         recyclerView2.setLayoutManager(layoutManager2);
-
+        viewModel.getTopPlaylist().observe(getViewLifecycleOwner(), new Observer<List<Playlist>>() {
+            @Override
+            public void onChanged(List<Playlist> playlists) {
+                playlists.get(0).setName(getString(R.string.most_played));
+                playlists.get(1).setName(getString(R.string.favorites));
+                playlists.get(2).setName(getString(R.string.histoty));
+                playlists.get(3).setName(getString(R.string.last_added));
+                playlistAdapter.setPlaylists(playlists);
+                playlistAdapter.notifyDataSetChanged();
+            }
+        });
+        viewModel.getListPlaylist().observe(getViewLifecycleOwner(), new Observer<List<Playlist>>() {
+            @Override
+            public void onChanged(List<Playlist> playlists) {
+                playlist2Adapter.setPlaylists(playlists);
+                playlist2Adapter.notifyDataSetChanged();
+            }
+        });
         final MainActivity activity = (MainActivity) getActivity();
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override

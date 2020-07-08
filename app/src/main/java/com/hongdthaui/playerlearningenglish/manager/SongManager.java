@@ -1,4 +1,4 @@
-package com.hongdthaui.playerlearningenglish.model;
+package com.hongdthaui.playerlearningenglish.manager;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -7,6 +7,10 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
+
+import com.hongdthaui.playerlearningenglish.model.Album;
+import com.hongdthaui.playerlearningenglish.model.Folder;
+import com.hongdthaui.playerlearningenglish.model.Song;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +55,7 @@ public class SongManager {
             path = c.getString(c.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA));
             //Log.e("MUSIC","path="+path+" name="+name+" title="+title+" album="+album);
 
-            Song song = new Song(id, name, title, album, artist, path, duration);
+            Song song = new Song(name, title, album, artist, path, duration);
             listSong.add(song);
 
             // list Album

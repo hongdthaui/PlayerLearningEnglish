@@ -12,18 +12,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongdthaui.playerlearningenglish.MainActivity;
 import com.hongdthaui.playerlearningenglish.R;
 import com.hongdthaui.playerlearningenglish.model.Album;
-import com.hongdthaui.playerlearningenglish.model.Song;
-import com.hongdthaui.playerlearningenglish.model.SongManager;
 import com.hongdthaui.playerlearningenglish.utils.ItemClickSupport;
 import com.hongdthaui.playerlearningenglish.view.adapter.AlbumAdapter;
-import com.hongdthaui.playerlearningenglish.view.adapter.AutoFitGirdLayoutManager;
-import com.hongdthaui.playerlearningenglish.view.adapter.SongAdapter;
 import com.hongdthaui.playerlearningenglish.viewmodel.MainViewModel;
 
 import java.util.ArrayList;

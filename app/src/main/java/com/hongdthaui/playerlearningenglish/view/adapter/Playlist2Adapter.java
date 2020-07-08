@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongdthaui.playerlearningenglish.R;
 import com.hongdthaui.playerlearningenglish.databinding.ItemPlaylist2Binding;
-import com.hongdthaui.playerlearningenglish.databinding.ItemPlaylistBinding;
 import com.hongdthaui.playerlearningenglish.model.Playlist;
 import com.hongdthaui.playerlearningenglish.viewmodel.PlaylistItemViewModel;
 
@@ -43,6 +42,10 @@ public class Playlist2Adapter extends RecyclerView.Adapter<Playlist2Adapter.Play
     @Override
     public int getItemCount() {
         return playlists.size();
+    }
+
+    public void setPlaylists(List<Playlist> playlists) {
+        this.playlists = playlists;
     }
 
     public class PlaylistHolder extends RecyclerView.ViewHolder{
