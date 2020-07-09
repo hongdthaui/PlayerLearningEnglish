@@ -51,25 +51,6 @@ public class PlaylistManager {
                 newplaylist.getSongs().add(song1);
             }
             myPlaylist.add(newplaylist);
-        /*    switch (newplaylist.getName()) {
-                case "history":
-                    history=newplaylist;
-                    break;
-                case "favorites":
-                    favorites=newplaylist;
-                    break;
-                case "mostPlayed":
-                    mostPlayed=newplaylist;
-                    break;
-                case "lastAdded":
-                    lastAdded=newplaylist;
-                    break;
-                default: {
-                    myPlaylist.add(newplaylist);
-                    break;
-                }*/
-
-            //}
         }
         List<PlaylistSongsDB> songs = database.playlistSongsDao().getSongs("history");
         for (PlaylistSongsDB song : songs) {

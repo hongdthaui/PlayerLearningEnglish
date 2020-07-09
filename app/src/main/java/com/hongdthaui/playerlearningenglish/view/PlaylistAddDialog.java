@@ -44,7 +44,7 @@ public class PlaylistAddDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 String name = etName.getText().toString();
-                if(name==null||name.contains("")){
+                if(name==null||name.isEmpty()){
                     Toast.makeText(context,"Please input name",Toast.LENGTH_LONG).show();
                     return;
                 }
