@@ -12,4 +12,7 @@
     <plurals name="num_song">
         <item quantity="other">%d bài</item>
     </plurals>
+    <string name="imput_playlist_name">Nhập vào tên danh sách nhạc</string>
+    <string name="button_ok">TẠO</string>
+    <string name="button_cancel">HỦY</string>
 </resources>

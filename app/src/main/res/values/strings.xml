@@ -14,4 +14,7 @@
         <item quantity="other">%d songs</item>
         <item quantity="zero">%d song</item>
     </plurals>
+    <string name="imput_playlist_name">Input name playlist</string>
+    <string name="button_ok">DONE</string>
+    <string name="button_cancel">CANCEL</string>
 </resources>

@@ -36,6 +36,11 @@ public class PlaylistManager {
     }
 
     public void fetchData() {
+        myPlaylist.clear();
+        history.clear();
+        favorites.clear();
+        mostPlayed.clear();
+        lastAdded.clear();
         List<PlaylistDB> playlistList = database.playlistDao().getAllPlaylist();
         for (PlaylistDB playlist : playlistList) {
             Playlist newplaylist = new Playlist(playlist.getName(), playlist.getTitle(), playlist.getIcon());
@@ -94,6 +99,7 @@ public class PlaylistManager {
 
     public void addPlaylist(String name) {
         database.playlistDao().insertPlaylist(new PlaylistDB(name.replace(" ", "").toLowerCase(), name, default_icon));
+        fetchData();
     }
 
     public void addSongToPlaylist(String name, Song song) {

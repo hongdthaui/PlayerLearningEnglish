@@ -28,6 +28,10 @@ public class Playlist {
         return name;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

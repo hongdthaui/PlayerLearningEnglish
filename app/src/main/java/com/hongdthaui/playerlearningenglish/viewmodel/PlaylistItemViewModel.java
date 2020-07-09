@@ -13,7 +13,7 @@ public class PlaylistItemViewModel {
     public ObservableInt num;
     public ObservableInt icon;
     public PlaylistItemViewModel(Playlist playlist) {
-        name = new ObservableField<>(playlist.getName());
+        name = new ObservableField<>(playlist.getTitle());
         num = new ObservableInt(playlist.getNum());
         icon = new ObservableInt(playlist.getIcon());
     }

@@ -1,12 +1,15 @@
 package com.hongdthaui.playerlearningenglish.view.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -16,9 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hongdthaui.playerlearningenglish.MainActivity;
 import com.hongdthaui.playerlearningenglish.R;
+import com.hongdthaui.playerlearningenglish.databinding.FragmentPlaylistBinding;
 import com.hongdthaui.playerlearningenglish.model.Playlist;
 import com.hongdthaui.playerlearningenglish.model.Song;
 import com.hongdthaui.playerlearningenglish.utils.ItemClickSupport;
+import com.hongdthaui.playerlearningenglish.view.PlaylistAddDialog;
 import com.hongdthaui.playerlearningenglish.view.adapter.Playlist2Adapter;
 import com.hongdthaui.playerlearningenglish.view.adapter.PlaylistAdapter;
 import com.hongdthaui.playerlearningenglish.viewmodel.MainViewModel;
@@ -33,11 +38,14 @@ public class PlaylistFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView recyclerView2;
     MainViewModel viewModel;
+    FragmentPlaylistBinding binding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-        return inflater.inflate(R.layout.fragment_playlist,container,false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_playlist,container,false);
+        binding.setViewModel(viewModel);
+        return binding.getRoot();//inflater.inflate(R.layout.fragment_playlist,container,false);
     }
 
     @Override
@@ -86,6 +94,21 @@ public class PlaylistFragment extends Fragment {
 //                /activity.onPlay(position,playlistAdapter.getSongList());
             }
         });
+        binding.fragmentPlaylistIbAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlaylistAddDialog.OKListener listener = new PlaylistAddDialog.OKListener() {
+                    @Override
+                    public void newPlaylistNameEnter(String playlistName) {
+                        viewModel.newPlaylistName(playlistName);
+                    }
+                };
+                final PlaylistAddDialog dialog = new PlaylistAddDialog(getActivity(),listener);
+                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                dialog.show();
+            }
+        });
+
 
     }
 }

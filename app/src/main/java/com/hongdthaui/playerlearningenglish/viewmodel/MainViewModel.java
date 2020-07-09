@@ -18,6 +18,7 @@ import com.hongdthaui.playerlearningenglish.model.Folder;
 import com.hongdthaui.playerlearningenglish.model.Playlist;
 import com.hongdthaui.playerlearningenglish.model.Song;
 import com.hongdthaui.playerlearningenglish.manager.SongManager;
+import com.hongdthaui.playerlearningenglish.view.PlaylistAddDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,9 @@ public class MainViewModel extends AndroidViewModel {
             topPlaylist.setValue(top);
         }
     }
+    public void onClickAddPlaylist(){
+
+    }
     public void onClickDown(){
         Log.e("MUSC","clickkk");
         isShowPlayer.set(false);
@@ -93,5 +97,9 @@ public class MainViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<Playlist>> getTopPlaylist() {
         return topPlaylist;
+    }
+
+    public void newPlaylistName(String playlistName) {
+        playlistManager.addPlaylist(playlistName);
     }
 }
