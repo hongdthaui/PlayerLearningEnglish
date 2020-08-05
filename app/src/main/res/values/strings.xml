@@ -5,7 +5,7 @@
     <string name="tab_3">Playlist</string>
     <string name="tab_4">Folder</string>
     <string name="most_played">Most played</string>
-    <string name="histoty">Histoty</string>
+    <string name="histoty">History</string>
     <string name="last_added">Last added</string>
     <string name="favorites">Favorites</string>
     <string name="my_playlist">My Playlist</string>
@@ -17,4 +17,5 @@
     <string name="imput_playlist_name">Input name playlist</string>
     <string name="button_ok">DONE</string>
     <string name="button_cancel">CANCEL</string>
+    <string name="add_song">Add song</string>
 </resources>

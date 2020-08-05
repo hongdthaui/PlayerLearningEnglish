@@ -66,9 +66,9 @@ public class AlbumFragment extends Fragment {
         viewModel.getListAlbum().observe(getViewLifecycleOwner(), new Observer<List<Album>>() {
             @Override
             public void onChanged(List<Album> albums) {
-                for (Album album:albums){
+/*                for (Album album:albums){
                     Log.e("MUSIC","Album=="+album.getName());
-                }
+                }*/
                 albumAdapter.setAlbumList(albums);
                 albumAdapter.notifyDataSetChanged();
             }

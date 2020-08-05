@@ -44,6 +44,10 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Playli
         return playlists.size();
     }
 
+    public List<Playlist> getPlaylists() {
+        return playlists;
+    }
+
     public void setPlaylists(List<Playlist> playlists) {
         this.playlists = playlists;
     }

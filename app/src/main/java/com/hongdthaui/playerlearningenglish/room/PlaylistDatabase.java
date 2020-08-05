@@ -7,12 +7,14 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.hongdthaui.playerlearningenglish.model.Playlist;
+import com.hongdthaui.playerlearningenglish.model.Song;
+import static com.hongdthaui.playerlearningenglish.room.InitSQL.VERSION_SQL;
 
 
 /**
  * Created by hongdthaui on 7/6/2020.
  */
-@Database(entities = {PlaylistDB.class, PlaylistSongsDB.class}, version = 1)
+@Database(entities = {Playlist.class, Song.class}, version = VERSION_SQL)
 public abstract class PlaylistDatabase extends RoomDatabase {
     private static PlaylistDatabase playlistDatabase;
 

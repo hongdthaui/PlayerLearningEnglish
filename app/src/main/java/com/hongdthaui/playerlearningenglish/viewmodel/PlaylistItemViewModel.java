@@ -15,6 +15,5 @@ public class PlaylistItemViewModel {
     public PlaylistItemViewModel(Playlist playlist) {
         name = new ObservableField<>(playlist.getTitle());
         num = new ObservableInt(playlist.getNum());
-        icon = new ObservableInt(playlist.getIcon());
     }
 }

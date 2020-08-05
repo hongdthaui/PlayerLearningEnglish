@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class SongManager {
     private Context context;
-    private List<Song> listSong;
+    public static List<Song> listSong;
     private List<Album> listAlbum;
     private List<Folder> listFolder;
     public SongManager(Context context) {
@@ -93,6 +93,7 @@ public class SongManager {
     }
 
     public List<Song> getListSong() {
+        //Log.e("MUSIC","listSong="+listSong.size());
         return listSong;
     }
 

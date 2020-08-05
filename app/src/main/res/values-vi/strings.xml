@@ -15,4 +15,5 @@
     <string name="imput_playlist_name">Nhập vào tên danh sách nhạc</string>
     <string name="button_ok">TẠO</string>
     <string name="button_cancel">HỦY</string>
+    <string name="add_song">Thêm bài hát</string>
 </resources>

@@ -2,26 +2,43 @@ package com.hongdthaui.playerlearningenglish.viewmodel;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.util.ArrayMap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import com.hongdthaui.playerlearningenglish.MainActivity;
 import com.hongdthaui.playerlearningenglish.R;
-import com.hongdthaui.playerlearningenglish.manager.PlaylistManager;
 import com.hongdthaui.playerlearningenglish.model.Album;
 import com.hongdthaui.playerlearningenglish.model.Folder;
 import com.hongdthaui.playerlearningenglish.model.Playlist;
 import com.hongdthaui.playerlearningenglish.model.Song;
 import com.hongdthaui.playerlearningenglish.manager.SongManager;
-import com.hongdthaui.playerlearningenglish.view.PlaylistAddDialog;
+import com.hongdthaui.playerlearningenglish.room.PlaylistDatabase;
+import com.hongdthaui.playerlearningenglish.view.activity.SongListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
+import static com.hongdthaui.playerlearningenglish.utils.Config.FAVORITES_NAME;
+import static com.hongdthaui.playerlearningenglish.utils.Config.HISTORY_NAME;
+import static com.hongdthaui.playerlearningenglish.utils.Config.LAST_ADDED_NAME;
+import static com.hongdthaui.playerlearningenglish.utils.Config.MOST_PLAYED_NAME;
 
 /**
  * Created by hongdthaui on 6/18/2020.
@@ -29,50 +46,49 @@ import java.util.List;
 public class MainViewModel extends AndroidViewModel {
     private Context context;
     private SongManager songManager;
-    private PlaylistManager playlistManager;
     private MutableLiveData<List<Song>> listSong;
     private MutableLiveData<List<Album>> listAlbum;
-    private MutableLiveData<List<Playlist>> listPlaylist;
-    private MutableLiveData<List<Playlist>> topPlaylist;
     private MutableLiveData<List<Folder>> listFolder;
+    private PlaylistDatabase db;
 
     public ObservableBoolean isShowPlayer = new ObservableBoolean(false);
     public ObservableField<String> txtAlarm = new ObservableField<>();
+    public ObservableInt numMostPlaylist = new ObservableInt(0);
+    public ObservableInt numFavoritesPlaylist = new ObservableInt(0);
+    public ObservableInt numHistoryPlaylist = new ObservableInt(0);
+    public ObservableInt numLastAddPlaylist = new ObservableInt(0);
     public MainViewModel(@NonNull Application application) {
         super(application);
         context = application.getApplicationContext();
+        db = PlaylistDatabase.getInstance(context);
+
         listSong = new MutableLiveData<>();
         listAlbum = new MutableLiveData<>();
-        listPlaylist = new MutableLiveData<>();
         listFolder = new MutableLiveData<>();
-        topPlaylist = new MutableLiveData<>();
         songManager = new SongManager(context);
-        playlistManager = new PlaylistManager(context);
     }
+
+
     public void fetchData(){
         if(MainActivity.READ_EXTERNAL_OK) {
-            Log.e("MUSIC","MainViewModel fetchData()");
             songManager.fetchData();
-            playlistManager.fetchData();
 
             listSong.setValue(songManager.getListSong());
             listFolder.setValue(songManager.getListFolder());
             listAlbum.setValue(songManager.getListAlbum());
-            listPlaylist.setValue(playlistManager.getMyPlaylist());
 
-            List<Playlist> top = new ArrayList<>();
-            top.add(new Playlist(context.getString(R.string.most_played),playlistManager.getMostPlayed(),R.drawable.ic_stars_24dp));
-            top.add(new Playlist(context.getString(R.string.favorites),playlistManager.getFavorites(),R.drawable.ic_favorite_enable_24dp));
-            top.add(new  Playlist(context.getString(R.string.histoty),playlistManager.getHistory(),R.drawable.ic_history_24dp));
-            top.add(new Playlist(context.getString(R.string.last_added),playlistManager.getLastAdded(),R.drawable.ic_last_listener_24dp));
-            topPlaylist.setValue(top);
         }
     }
-    public void onClickAddPlaylist(){
-
+    public void onClickTop(String playlist){
+        Intent intent = new Intent(context, SongListActivity.class);
+        intent.putExtra("playlist_id",0);
+        intent.putExtra("playlist_name",playlist);
+        intent.putExtra("playlist_title",playlist);
+        intent.putExtra("playlist_num",0);
+        context.startActivity(intent);
     }
     public void onClickDown(){
-        Log.e("MUSC","clickkk");
+        //Log.e("MUSC","clickkk");
         isShowPlayer.set(false);
     }
     public void onClickBottomControl(){
@@ -87,19 +103,81 @@ public class MainViewModel extends AndroidViewModel {
         return listAlbum;
     }
 
-    public MutableLiveData<List<Playlist>> getListPlaylist() {
-        return listPlaylist;
+    public LiveData<List<Playlist>> getListPlaylist() {
+        return db.playlistDao().getAllPlaylist();
+    }
+
+    public LiveData<Integer> getNumHistory() {
+        return db.playlistSongsDao().getCount(HISTORY_NAME);
+    }
+
+    public void setNumHistoryPlaylist(int num) {
+        this.numHistoryPlaylist.set(num);
+    }
+
+    public LiveData<Integer> getNumMost() {
+        return db.playlistSongsDao().getCount(MOST_PLAYED_NAME);
+    }
+
+    public void setNumMostPlaylist(int num) {
+        this.numMostPlaylist.set(num);
+    }
+
+    public LiveData<Integer> getNumFavorites() {
+        return db.playlistSongsDao().getCount(FAVORITES_NAME);
+    }
+
+    public void setNumFavoritesPlaylist(int num) {
+        this.numFavoritesPlaylist.set(num);
+    }
+
+    public LiveData<Integer> getNumLastAdd() {
+        return db.playlistSongsDao().getCount(LAST_ADDED_NAME);
+    }
+
+    public void setNumLastAddPlaylist(int num) {
+        this.numLastAddPlaylist.set(num);
     }
 
     public MutableLiveData<List<Folder>> getListFolder() {
         return listFolder;
     }
 
-    public MutableLiveData<List<Playlist>> getTopPlaylist() {
-        return topPlaylist;
+    public void newPlaylistName(String playlistName) {
+        db.playlistDao().insertPlaylist(new Playlist(playlistName.replace(" ", "").toLowerCase(), playlistName,0));
     }
 
-    public void newPlaylistName(String playlistName) {
-        playlistManager.addPlaylist(playlistName);
+    public void onPlay(int position, List<Song> songs) {
+
+        updateMostPlayed(songs.get(position));//up most fisrt because  num
+
+        updateHistory(songs.get(position));
+
+    }
+
+    private void updateMostPlayed(Song song) {
+        List<Song> songDB = db.playlistSongsDao().getSong("mostPlayed",song.getName());
+        if (songDB.size()>0){
+            for (Song s:songDB) {
+                s.setNumListen(s.getNumListen()+1);
+                db.playlistSongsDao().updateSong(s);
+            }
+        }else {
+            song.setPlaylist("mostPlayed");
+            song.setNumListen(1);
+            db.playlistSongsDao().insertSong(song);
+        }
+    }
+
+    private void updateHistory(Song song) {
+        song.setPlaylist("history");
+        List<Song> songDB = db.playlistSongsDao().getSong("history",song.getName());
+        //Log.e("MUSIC","song="+song.toString());
+        for (Song s:songDB) {
+           // Log.e("MUSIC","songDB="+s.toString());
+            db.playlistSongsDao().deleteSong(s);
+        }
+        song.setNumListen(0);//for query getSongs oder by id
+        db.playlistSongsDao().insertSong(song);
     }
 }

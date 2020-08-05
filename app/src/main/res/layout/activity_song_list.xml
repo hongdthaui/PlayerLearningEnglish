@@ -2,82 +2,53 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:bind="http://schemas.android.com/apk/res/android"
-    tools:context=".MainActivity">
+
+    tools:context=".view.activity.SongListActivity">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.hongdthaui.playerlearningenglish.viewmodel.MainViewModel" />
+            type="com.hongdthaui.playerlearningenglish.viewmodel.SongListViewModel" />
     </data>
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/main_coorLayout"
+        android:id="@+id/song_list_coorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_main">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar"
-
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:contentScrim="?attr/colorPrimary"
-                app:toolbarId="@+id/toolbar">
-
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/activity_main_tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    app:tabGravity="fill"
-                    app:tabMode="scrollable"
-                    app:tabSelectedTextColor="@color/colorAccent"
-                    app:tabTextColor="#ffffff">
-
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tab_1" />
-
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tab_3" />
-
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tab_2" />
-
-
-                </com.google.android.material.tabs.TabLayout>
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/main_viewPager"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/song_list_rv"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_marginBottom="60dp">
 
-        </androidx.viewpager.widget.ViewPager>
 
+        </androidx.recyclerview.widget.RecyclerView>
 
         <!-- Adding bottom sheet after main content -->
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/main_bottom_control"
+            android:id="@+id/song_list_bottom_control"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -85,7 +56,7 @@
             android:onClick="@{()->viewModel.onClickBottomControl()}">
 
             <SeekBar
-                android:id="@+id/activity_main_seekBar"
+                android:id="@+id/song_list_seekBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -97,14 +68,14 @@
                 android:progressBackgroundTint="#FFFFFF"
                 android:theme="@style/Base.Widget.AppCompat.SeekBar"
                 android:thumb="@android:color/transparent"
-                app:layout_constraintBottom_toTopOf="@id/main_bottom_civ_song_icon"
+                app:layout_constraintBottom_toTopOf="@id/song_list_bottom_civ_song_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/main_bottom_civ_song_icon"
+                android:id="@+id/song_list_bottom_civ_song_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
@@ -114,60 +85,71 @@
                 android:src="@drawable/ic_music_note_240dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/activity_main_seekBar" />
+                app:layout_constraintTop_toBottomOf="@+id/song_list_seekBar" />
 
             <TextView
-                android:id="@+id/main_bottom_tv_song_name"
+                android:id="@+id/song_list_bottom_tv_song_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="À ru hời ơ hời ru"
                 android:textColor="@android:color/background_light"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/main_bottom_civ_song_icon"
-                app:layout_constraintEnd_toStartOf="@+id/main_bottom_ib_play"
-                app:layout_constraintStart_toEndOf="@+id/main_bottom_civ_song_icon"
-                app:layout_constraintTop_toTopOf="@id/main_bottom_civ_song_icon" />
+                app:layout_constraintBottom_toBottomOf="@id/song_list_bottom_civ_song_icon"
+                app:layout_constraintEnd_toStartOf="@+id/song_list_bottom_ib_play"
+                app:layout_constraintStart_toEndOf="@+id/song_list_bottom_civ_song_icon"
+                app:layout_constraintTop_toTopOf="@id/song_list_bottom_civ_song_icon" />
 
             <ImageButton
-                android:id="@+id/main_bottom_ib_play"
+                android:id="@+id/song_list_bottom_ib_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/bt_oval_click"
-                app:layout_constraintBottom_toBottomOf="@id/main_bottom_civ_song_icon"
-                app:layout_constraintEnd_toStartOf="@+id/main_bottom_ib_play_queue"
-                app:layout_constraintTop_toTopOf="@id/main_bottom_civ_song_icon"
+                app:layout_constraintBottom_toBottomOf="@id/song_list_bottom_civ_song_icon"
+                app:layout_constraintEnd_toStartOf="@+id/song_list_bottom_ib_play_queue"
+                app:layout_constraintTop_toTopOf="@id/song_list_bottom_civ_song_icon"
                 app:srcCompat="@android:drawable/ic_media_play" />
 
             <ImageButton
-                android:id="@+id/main_bottom_ib_play_queue"
+                android:id="@+id/song_list_bottom_ib_play_queue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/bt_oval_click"
-                app:layout_constraintBottom_toBottomOf="@+id/main_bottom_civ_song_icon"
-                app:layout_constraintEnd_toStartOf="@id/main_bottom_ib_setting"
-                app:layout_constraintTop_toTopOf="@id/main_bottom_civ_song_icon"
+                app:layout_constraintBottom_toBottomOf="@+id/song_list_bottom_civ_song_icon"
+                app:layout_constraintEnd_toStartOf="@id/song_list_bottom_ib_setting"
+                app:layout_constraintTop_toTopOf="@id/song_list_bottom_civ_song_icon"
                 app:srcCompat="@drawable/ic_queue_music_24dp" />
 
             <ImageButton
-                android:id="@+id/main_bottom_ib_setting"
+                android:id="@+id/song_list_bottom_ib_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/bt_oval_click"
                 android:onClick="@{()->viewModel.onClickBottomControl()}"
-                app:layout_constraintBottom_toBottomOf="@+id/main_bottom_civ_song_icon"
+                app:layout_constraintBottom_toBottomOf="@+id/song_list_bottom_civ_song_icon"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/main_bottom_civ_song_icon"
+                app:layout_constraintTop_toTopOf="@+id/song_list_bottom_civ_song_icon"
                 app:srcCompat="@drawable/ic_settings_24dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <Button
+            android:id="@+id/song_list_bt_add"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_rectangle"
+            android:drawableLeft="@drawable/ic_add_24dp"
+            android:text="@string/add_song"
+            android:textColor="@color/colorText"
+            android:visibility="@{viewModel.isShowAdd?View.VISIBLE:View.GONE}"/>
+
         <include
-            android:id="@+id/bottom_sheet_cl_player"
-            layout="@layout/bottom_sheet_player"
+            android:id="@+id/bottom_sheet_cl_player2"
+            layout="@layout/bottom_sheet_player2"
             app:viewModel="@{viewModel}" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

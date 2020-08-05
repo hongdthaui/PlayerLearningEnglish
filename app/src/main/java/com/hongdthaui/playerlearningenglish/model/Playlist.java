@@ -1,29 +1,59 @@
 package com.hongdthaui.playerlearningenglish.model;
 
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.hongdthaui.playerlearningenglish.model.Song;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Entity(tableName = "playlist")
 public class Playlist {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo
+    private int id;
+    @ColumnInfo
     private String name;
+    @ColumnInfo
     private String title;
-    private int icon;
-    private List<Song> songs;
+    @ColumnInfo
+    private int num;
+    public Playlist(){
 
-    public Playlist(String title, List<Song> songs, int icon){
-        this.title = title;
-        this.songs = songs;
-        this.icon = icon;
     }
-    public Playlist(String name, String title, int icon){
+    @Ignore
+    public Playlist(String name, String title, int num){
         this.name = name;
         this.title = title;
-        songs = new ArrayList<>();
-        this.icon = icon;
+        this.num = num;
     }
+    @Ignore
+    public Playlist(int id, String name, String title, int num){
+        this.id = id;
+        this.name = name;
+        this.title = title;
+        this.num = num;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getName() {
         return name;
     }
@@ -36,23 +66,17 @@ public class Playlist {
         this.name = name;
     }
 
-    public int getIcon() {
-        return icon;
-    }
-
-    public void setIcon(int icon) {
-        this.icon = icon;
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public int getNum(){
-        return songs.size();
+        return num;
     }
 
-    public List<Song> getSongs() {
-        return songs;
-    }
-
-    public void setSongs(List<Song> songs) {
-        this.songs = songs;
+    @NonNull
+    @Override
+    public String toString() {
+        return "id="+id+"name="+name+" num="+num;
     }
 }

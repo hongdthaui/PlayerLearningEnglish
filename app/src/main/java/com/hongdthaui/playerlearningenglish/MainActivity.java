@@ -8,6 +8,7 @@ import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 
 import androidx.databinding.ObservableBoolean;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.Manifest;
@@ -58,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
         mainBinding.mainViewPager.setAdapter(adapter);
         mainBinding.activityMainTabLayout.setupWithViewPager(mainBinding.mainViewPager);
 
+
+
+
         clBottomSheet = findViewById(R.id.bottom_sheet_cl_player);
         sheetBehavior = BottomSheetBehavior.from(clBottomSheet);
 
@@ -84,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 
     //setbg status bar = background
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -167,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
     public void onPlay(int position, List<Song> songList) {
         //sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
        // viewModel.txtAlarm.set("23:59");
+        viewModel.onPlay(position,songList);
         viewModel.isShowPlayer.set(true);
     }
 
@@ -176,4 +182,5 @@ public class MainActivity extends AppCompatActivity {
         BottomSheetBehavior behavior = BottomSheetBehavior.from(layout);
         behavior.setState(state.get() ? BottomSheetBehavior.STATE_EXPANDED : BottomSheetBehavior.STATE_HIDDEN);
     }
+
 }
